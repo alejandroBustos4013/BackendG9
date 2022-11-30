@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.grupo10.app.rents.interfaces;
+package com.movies.interfaces;
 
-import com.grupo10.app.rents.entities.Category;
-import org.springframework.data.repository.CrudRepository;
+
+import com.movies.entities.Genero;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  *
  * @author Andres
  */
-public interface ICategoryRepository extends CrudRepository<Category, Integer> {
+public interface IGeneroRepository extends MongoRepository<Genero, String> {
     
 }

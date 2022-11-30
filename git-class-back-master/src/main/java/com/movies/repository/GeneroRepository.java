@@ -2,12 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.grupo10.app.rents.repository;
+package com.movies.repository;
 
-import com.grupo10.app.rents.entities.Category;
-import com.grupo10.app.rents.interfaces.ICategoryRepository;
+import com.movies.entities.Genero;
+import com.movies.interfaces.IGeneroRepository;
 
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,30 +16,30 @@ import org.springframework.stereotype.Repository;
  * @author Andres
  */
 @Repository
-public class CategoryRepository {
+public class GeneroRepository {
     
     @Autowired
-    ICategoryRepository repository;
+    IGeneroRepository repository;
     
-    public Iterable<Category> getAll(){
+    public Iterable<Genero> getAll(){
         return repository.findAll();
     }
     
-    public Optional<Category> findById(Integer id){
-        Optional<Category> response= repository.findById(id);
+    public Optional<Genero> findById(String id){
+        Optional<Genero> response= repository.findById(id);
         return response;
     }
     
-    public Boolean existsById(Integer id){
+    public Boolean existsById(String id){
         return repository.existsById(id);
     }
     
-    public void deleteById(Integer id){
+    public void deleteById(String id){
         repository.deleteById(id);
     }
     
-    public Category save(Category category){
-        return repository.save(category);
+    public Genero save(Genero genero){
+        return repository.save(genero);
     }
     
 }

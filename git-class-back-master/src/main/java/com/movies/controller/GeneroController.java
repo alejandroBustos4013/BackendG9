@@ -2,12 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.grupo10.app.rents.controller;
+package com.movies.controller;
 
-import com.grupo10.app.rents.entities.Client;
-import com.grupo10.app.rents.service.ClientService;
-import java.util.ArrayList;
-import java.util.List;
+import com.movies.entities.Genero;
+import com.movies.service.GeneroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,27 +24,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/Client")
+@RequestMapping("/api/genero")
 @CrossOrigin(origins = "*")
-public class ClientController {
+public class GeneroController {
 
     @Autowired
-    ClientService service;
+    GeneroService service;
 
-    @GetMapping("/all")
-    public Iterable<Client> get() {
-        return service.get();
+    @GetMapping("")
+    public Iterable<Genero> get() {
+        Iterable<Genero> response = service.get();
+
+        return response;
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Client create(@RequestBody Client request) {
+    public Genero create(@RequestBody Genero request) {
         return service.create(request);
     }
 
-    @PutMapping("/update")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Client update(@RequestBody Client request) {
+    @PutMapping("")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Genero update(@RequestBody Genero request) {
         return service.update(request);
     }
 

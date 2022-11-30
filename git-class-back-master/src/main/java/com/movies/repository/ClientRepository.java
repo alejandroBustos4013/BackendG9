@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.grupo10.app.rents.repository;
+package com.movies.repository;
 
-import com.grupo10.app.rents.entities.Client;
-import com.grupo10.app.rents.interfaces.IClientRepository;
+import com.movies.entities.Client;
 
-import java.util.List;
 import java.util.Optional;
+
+import com.movies.interfaces.IClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +31,7 @@ public class ClientRepository {
         return response;
     }
     
-    public Boolean existsById(String id){
+    public Boolean existsById (String id){
         return repository.existsById(id);
     }
     
