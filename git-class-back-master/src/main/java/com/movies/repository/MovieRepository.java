@@ -9,6 +9,7 @@ import com.movies.interfaces.IMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,7 +25,12 @@ public class MovieRepository {
     public Iterable<Movie> getAll(){
         return repository.findAll();
     }
-    
+
+    public List<Movie> getByTitle(String title){
+        return repository.getMoviesByTitle(title);
+    }
+
+
     public Optional<Movie> findById(String id){
         Optional<Movie> response= repository.findById(id);
         return response;

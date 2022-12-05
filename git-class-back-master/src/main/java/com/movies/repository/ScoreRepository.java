@@ -4,33 +4,37 @@
  */
 package com.movies.repository;
 
-import com.movies.entities.Genero;
-import com.movies.interfaces.IGeneroRepository;
-
-import java.util.Optional;
+import com.movies.entities.Score;
+import com.movies.entities.User;
+import com.movies.interfaces.IScoreRepository;
+import com.movies.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  *
  * @author Andres
  */
 @Repository
-public class GeneroRepository {
+public class ScoreRepository {
     
     @Autowired
-    IGeneroRepository repository;
+    IScoreRepository repository;
     
-    public Iterable<Genero> getAll(){
+    public Iterable<Score> getAll(){
+
         return repository.findAll();
     }
     
-    public Optional<Genero> findById(String id){
-        Optional<Genero> response= repository.findById(id);
+    public Optional<Score> findById(String id){
+        Optional<Score> response= repository.findById(id);
         return response;
     }
     
-    public Boolean existsById(String id){
+    public Boolean existsById (String id){
+
         return repository.existsById(id);
     }
     
@@ -38,8 +42,9 @@ public class GeneroRepository {
         repository.deleteById(id);
     }
     
-    public Genero save(Genero genero){
-        return repository.save(genero);
+    public Score save(Score score){
+
+        return repository.save(score);
     }
     
 }

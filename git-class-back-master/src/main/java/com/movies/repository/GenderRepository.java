@@ -4,11 +4,10 @@
  */
 package com.movies.repository;
 
-import com.movies.entities.Client;
+import com.movies.entities.Gender;
+import com.movies.interfaces.IGenderRepository;
 
 import java.util.Optional;
-
-import com.movies.interfaces.IClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,30 +16,34 @@ import org.springframework.stereotype.Repository;
  * @author Andres
  */
 @Repository
-public class ClientRepository {
+public class GenderRepository {
     
     @Autowired
-    IClientRepository repository;
+    IGenderRepository repository;
     
-    public Iterable<Client> getAll(){
+    public Iterable<Gender> getAll(){
+
         return repository.findAll();
     }
     
-    public Optional<Client> findById(String id){
-        Optional<Client> response= repository.findById(id);
+    public Optional<Gender> findById(String id){
+        Optional<Gender> response= repository.findById(id);
         return response;
     }
     
-    public Boolean existsById (String id){
+    public Boolean existsById(String id){
+
         return repository.existsById(id);
     }
     
     public void deleteById(String id){
+
         repository.deleteById(id);
     }
     
-    public Client save(Client client){
-        return repository.save(client);
+    public Gender save(Gender gender){
+
+        return repository.save(gender);
     }
     
 }

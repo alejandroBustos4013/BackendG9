@@ -5,11 +5,12 @@
 package com.movies.controller;
 
 import com.movies.dto.ResponseDto;
-import com.movies.entities.Movie;
-import com.movies.service.MovieService;
+import com.movies.entities.Score;
+import com.movies.entities.User;
+import com.movies.service.ScoreService;
+import com.movies.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,34 +18,29 @@ import org.springframework.web.bind.annotation.*;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/movie")
+@RequestMapping("/api/score")
 @CrossOrigin(origins = "*")
-public class MovieController {
+public class ScoreController {
 
     @Autowired
-    MovieService service;
+    ScoreService service;
 
     @GetMapping("")
-    public Iterable<Movie> get() {
+    public Iterable<Score> get() {
         return service.get();
     }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ResponseDto> create(@RequestBody Movie request) {
-        ResponseDto responseDto = service.create(request);
-        ResponseEntity<ResponseDto> response = new ResponseEntity<>(responseDto,HttpStatus.CONFLICT);
+    public ResponseDto create(@RequestBody Score request) {
 
-        if(responseDto.status.booleanValue()==true){
-            response = new ResponseEntity<>(responseDto,HttpStatus.CREATED);
-        }
-
-        return response;
+        return service.create(request);
     }
+
 
     @PutMapping("")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Movie update(@RequestBody Movie request) {
+    public Score update(@RequestBody Score request) {
         return service.update(request);
     }
 

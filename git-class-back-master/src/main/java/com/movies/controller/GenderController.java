@@ -4,9 +4,9 @@
  */
 package com.movies.controller;
 
-import com.movies.entities.Client;
-import com.movies.service.ClientService;
-
+import com.movies.dto.ResponseDto;
+import com.movies.entities.Gender;
+import com.movies.service.GenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,33 +25,38 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/gender")
 @CrossOrigin(origins = "*")
-public class ClientController {
+public class GenderController {
 
     @Autowired
-    ClientService service;
+    GenderService service;
 
     @GetMapping("")
-    public Iterable<Client> get() {
-        return service.get();
+    public Iterable<Gender> get() {
+        Iterable<Gender> response = service.get();
+
+        return response;
     }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Client create(@RequestBody Client request) {
+    public ResponseDto create(@RequestBody Gender request) {
+
         return service.create(request);
     }
 
     @PutMapping("")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Client update(@RequestBody Client request) {
+    public Gender update(@RequestBody Gender request) {
+
         return service.update(request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") String id) {
+
         service.delete(id);
     }
 

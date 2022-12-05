@@ -4,11 +4,13 @@
  */
 package com.movies.service;
 
+import com.movies.dto.ResponseDto;
 import com.movies.entities.Movie;
 import com.movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,6 +20,9 @@ import java.util.Optional;
 @Service
 public class MovieService {
 
+    private final String MovieRegistered="Pelicua ya se encuentra registrada";
+    private final String MovieSuccess="Pelicula ingresada exitosamente";
+
     @Autowired
     MovieRepository repository;
 
@@ -26,9 +31,19 @@ public class MovieService {
         return response;
     }
 
-    public Movie create(Movie request) {
-
-        return repository.save(request);
+    public ResponseDto create(Movie request) {
+        ResponseDto response = new ResponseDto();
+        List<Movie> movies = repository.getByTitle(request.getTitle());
+        if(movies.size()>0){
+            response.status=false;
+            response.message=MovieRegistered;
+        }else{
+            repository.save(request);
+            response.status=true;
+            response.message=MovieSuccess;
+            response.id= request.getId();
+        }
+        return response;
 
     }
 

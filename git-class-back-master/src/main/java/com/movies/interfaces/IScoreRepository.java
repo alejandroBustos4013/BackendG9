@@ -4,14 +4,13 @@
  */
 package com.movies.interfaces;
 
-
-import com.movies.entities.Genero;
+import com.movies.entities.Score;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  *
  * @author Andres
  */
-public interface IGeneroRepository extends MongoRepository<Genero, String> {
+public interface IScoreRepository extends MongoRepository<Score, String> {
     
 }

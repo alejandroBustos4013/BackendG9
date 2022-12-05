@@ -22,18 +22,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author Andres
  */
 
-@Document("category")
+@Document("gender")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Genero implements Serializable {
+public class Gender implements Serializable {
 
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
 
     private String id;
 
-    private String name;    
-
-    private String description;
+    private String name;
 }

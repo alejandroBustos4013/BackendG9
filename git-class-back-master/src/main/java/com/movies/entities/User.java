@@ -21,28 +21,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author Andres
  */
 
-@Document("client")
+@Document("user")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Client implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private String id;
 
-    private String email;
-
-    private String nombreUsuario;
+    private String username;
 
     private String password;
 
-    private String name;
+    private String full_name;
 
-    private String lastName;
+    private String number_identification;
 
-    private String telephone;
+    private String phone;
 
-    private String birthDate ;
+    private String email;
 
 }

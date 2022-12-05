@@ -4,7 +4,7 @@
  */
 package com.movies.dto;
 
-import com.movies.entities.Client;
+import com.movies.entities.User;
 
 /**
  *
@@ -13,6 +13,6 @@ import com.movies.entities.Client;
 public class ReportClientDto {
     
     public Long total;
-    public Client client;
+    public User user;
     
 }

@@ -4,13 +4,14 @@
  */
 package com.movies.interfaces;
 
-import com.movies.entities.Client;
+
+import com.movies.entities.Gender;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  *
  * @author Andres
  */
-public interface IClientRepository extends MongoRepository<Client, String> {
+public interface IGenderRepository extends MongoRepository<Gender, String> {
     
 }

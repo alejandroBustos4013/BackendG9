@@ -4,8 +4,10 @@
  */
 package com.movies.controller;
 
-import com.movies.entities.Genero;
-import com.movies.service.GeneroService;
+import com.movies.dto.ResponseDto;
+import com.movies.entities.User;
+import com.movies.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,29 +26,27 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/genero")
+@RequestMapping("/api/user")
 @CrossOrigin(origins = "*")
-public class GeneroController {
+public class UserController {
 
     @Autowired
-    GeneroService service;
+    UserService service;
 
     @GetMapping("")
-    public Iterable<Genero> get() {
-        Iterable<Genero> response = service.get();
-
-        return response;
+    public Iterable<User> get() {
+        return service.get();
     }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Genero create(@RequestBody Genero request) {
+    public ResponseDto create(@RequestBody User request) {
         return service.create(request);
     }
 
     @PutMapping("")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Genero update(@RequestBody Genero request) {
+    public User update(@RequestBody User request) {
         return service.update(request);
     }
 
