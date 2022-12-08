@@ -23,7 +23,7 @@ public class Score {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private Integer score;
-    private Movie movie;
+    private Movie movies;
     private User users;
 
 

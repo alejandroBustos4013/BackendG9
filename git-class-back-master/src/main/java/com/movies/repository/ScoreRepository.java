@@ -4,6 +4,7 @@
  */
 package com.movies.repository;
 
+import com.movies.entities.Movie;
 import com.movies.entities.Score;
 import com.movies.entities.User;
 import com.movies.interfaces.IScoreRepository;
@@ -11,6 +12,7 @@ import com.movies.interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,6 +29,13 @@ public class ScoreRepository {
 
         return repository.findAll();
     }
+
+
+    public List<Score> getByMovieAndUser(Movie movie, User users){
+        return repository.getScoreByMoviesAndUser(movie, users);
+    }
+
+
     
     public Optional<Score> findById(String id){
         Optional<Score> response= repository.findById(id);

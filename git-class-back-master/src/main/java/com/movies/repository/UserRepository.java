@@ -4,8 +4,10 @@
  */
 package com.movies.repository;
 
+import com.movies.entities.Movie;
 import com.movies.entities.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.movies.interfaces.IUserRepository;
@@ -26,6 +28,23 @@ public class UserRepository {
 
         return repository.findAll();
     }
+
+    public List<User> getByName(String full_name){
+        return repository.getUserByName(full_name);
+    }
+
+    public List<User> getByUsername (String username){
+        return repository.getUserByUsername(username);
+    }
+
+    public List<User> getByEmail (String email){
+        return repository.getUserByEmail(email);
+    }
+
+    public List<User> getByCC (String number_identification){
+        return repository.getUserByCC(number_identification);
+    }
+
     
     public Optional<User> findById(String id){
         Optional<User> response= repository.findById(id);

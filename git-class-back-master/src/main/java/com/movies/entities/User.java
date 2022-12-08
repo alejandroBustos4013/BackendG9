@@ -4,7 +4,6 @@
  */
 package com.movies.entities;
 
-
 import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;

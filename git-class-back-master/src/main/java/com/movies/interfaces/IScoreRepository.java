@@ -4,13 +4,22 @@
  */
 package com.movies.interfaces;
 
+import com.movies.entities.Movie;
 import com.movies.entities.Score;
+import com.movies.entities.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+
+import java.util.List;
 
 /**
  *
  * @author Andres
  */
 public interface IScoreRepository extends MongoRepository<Score, String> {
-    
+
+    @Query(value= "{movies : ?0, users: ?1}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
+    List<Score> getScoreByMoviesAndUser(Movie movies, User users);
+
+
 }

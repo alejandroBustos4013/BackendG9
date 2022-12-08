@@ -44,7 +44,6 @@ public class MovieService {
             response.id= request.getId();
         }
         return response;
-
     }
 
     public Movie update(Movie movie) {
@@ -57,7 +56,6 @@ public class MovieService {
         }
         return movieToUpdate;
     }
-
     public Boolean delete(String id) {
         repository.deleteById(id);
         Boolean deleted = true;
