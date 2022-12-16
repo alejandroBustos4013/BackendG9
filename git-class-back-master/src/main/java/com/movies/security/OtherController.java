@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-public class AuthController {
+public class OtherController {
 
     /*@GetMapping("/auth")
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {

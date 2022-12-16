@@ -50,6 +50,16 @@ public class UserRepository {
         Optional<User> response= repository.findById(id);
         return response;
     }
+
+    public Optional<User> findUserByEmail(String email){
+        Optional<User> response= repository.findUserByEmail(email);
+        return response;
+    }
+
+    public Optional<User> findUserByUsername(String username){
+        Optional<User> response= repository.findUserByUsername(username);
+        return response;
+    }
     
     public Boolean existsById (String id){
 

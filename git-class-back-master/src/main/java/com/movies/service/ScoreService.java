@@ -5,6 +5,7 @@
 package com.movies.service;
 
 import com.movies.dto.ResponseDto;
+import com.movies.dto.ScoreDto;
 import com.movies.entities.Movie;
 import com.movies.entities.Score;
 import com.movies.entities.User;
@@ -31,32 +32,53 @@ public class ScoreService {
 
     @Autowired
     ScoreRepository repository;
-    //MovieRepository repositoryMovie;
+
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    MovieRepository movieRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+
 
     public Iterable<Score> get() {
         Iterable<Score> response = repository.getAll();
         return response;
     }
 
-    public ResponseDto create(Score request) {
+    public ResponseDto create(ScoreDto request) {
 
         ResponseDto response = new ResponseDto();
+        response.status = false;
+        //List<Score> scoresUserAndMovieById = repository.getByMovieAndUserById(request.movieId, request.userId);
 
-        List<Score> scoresUserAndMovie = repository.getByMovieAndUser(request.getMovies(),request.getUsers());
-        //List<Movie> movieFindByTitle = repositoryMovie.getByTitle(request.getMovies().getTitle());
 
-        if(request.getScore().intValue()<1 || request.getScore().intValue()>5){ //para evaluar la puntuacion
-            response.status=false;
-            response.message=scoreDeclined;
-        }else if (scoresUserAndMovie.size()>0 ) {
-            response.status=false;
-            response.message=scoreDeclinedRepeat;
+        if (request.score < 1 || request.score > 5) { //para evaluar la puntuacion
+            response.message = scoreDeclined;
+        } /*else if (scoresUserAndMovieById.size() > 0) {
+            response.status = false;
+            response.message = scoreDeclinedRepeat;
+        }*/ else {
+            Score score = new Score();
+            Optional<Movie> movie = movieRepository.findById(request.movieId);
+            Optional<User> user = userRepository.findById(request.userId);
 
-        }  else {
-                repository.save(request);
-                response.status=true;
-                response.message=scoreAccepted;
-                response.id= request.getId();
+
+
+
+            if (movie.isPresent() && user.isPresent()) {
+                score.setScore(request.score);
+                score.setMovies(movie.get());
+                score.setUsers(user.get());
+                repository.save(score);
+                response.status = true;
+                response.message = scoreAccepted;
+                response.id = score.getId();
+            }
         }
         return response;
     }

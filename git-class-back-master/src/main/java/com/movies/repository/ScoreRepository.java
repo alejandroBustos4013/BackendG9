@@ -9,6 +9,7 @@ import com.movies.entities.Score;
 import com.movies.entities.User;
 import com.movies.interfaces.IScoreRepository;
 import com.movies.interfaces.IUserRepository;
+import com.movies.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,8 @@ public class ScoreRepository {
     
     @Autowired
     IScoreRepository repository;
+
+
     
     public Iterable<Score> getAll(){
 
@@ -33,6 +36,10 @@ public class ScoreRepository {
 
     public List<Score> getByMovieAndUser(Movie movie, User users){
         return repository.getScoreByMoviesAndUser(movie, users);
+    }
+
+    public List<Score> getByMovieAndUserById(String movieId, String userId){
+        return repository.getScoreByMoviesAndUserById(movieId, userId);
     }
 
 

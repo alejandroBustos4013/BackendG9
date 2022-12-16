@@ -31,6 +31,11 @@ public class MovieService {
         return response;
     }
 
+    public Optional<Movie> getById(String id) {
+        Optional<Movie> response = repository.findById(id);
+        return response;
+    }
+
     public ResponseDto create(Movie request) {
         ResponseDto response = new ResponseDto();
         List<Movie> movies = repository.getByTitle(request.getTitle());

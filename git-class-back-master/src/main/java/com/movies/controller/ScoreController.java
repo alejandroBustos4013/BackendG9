@@ -5,6 +5,7 @@
 package com.movies.controller;
 
 import com.movies.dto.ResponseDto;
+import com.movies.dto.ScoreDto;
 import com.movies.entities.Score;
 import com.movies.entities.User;
 import com.movies.service.ScoreService;
@@ -33,7 +34,7 @@ public class ScoreController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ResponseDto> create(@RequestBody Score request) {
+    public ResponseEntity<ResponseDto> create(@RequestBody ScoreDto request) {
         ResponseDto responseDto = service.create(request);
         ResponseEntity<ResponseDto> response = new ResponseEntity<>(responseDto,HttpStatus.CONFLICT);
 

@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -22,6 +23,12 @@ public interface IUserRepository extends MongoRepository<User, String> {
 
     @Query(value= "{email : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
     List<User> getUserByEmail(String email);
+
+    @Query(value= "{email : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
+    Optional<User> findUserByEmail(String email);
+
+    @Query(value= "{username : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
+    Optional<User> findUserByUsername(String username);
 
     @Query(value= "{full_name : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
     List<User> getUserByName(String full_name);

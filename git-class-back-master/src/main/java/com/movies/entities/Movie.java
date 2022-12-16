@@ -46,4 +46,6 @@ public class Movie implements Serializable {
 
     private List<User> users;
 
+    private String imageLink;
+
 }

@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 /**
  *
  * @author Andres
@@ -27,6 +29,11 @@ public class MovieController {
     @GetMapping("")
     public Iterable<Movie> get() {
         return service.get();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Movie> getById(@PathVariable("id") String id) {
+        return service.getById(id);
     }
 
     @PostMapping("")

@@ -13,7 +13,10 @@ import com.movies.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,10 +33,26 @@ public class UserService {
     @Autowired
     UserRepository repository;
 
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public Iterable<User> get() {
         Iterable<User> response = repository.getAll();
         return response;
     }
+
+    public Optional<User> getByCredential(String credential) {
+        String pair = new String(Base64.decodeBase64(credential.substring(6)));
+        String email = pair.split(":")[0];
+        String pass = pair.split(":")[1];
+
+        Optional<User> user = repository.findUserByEmail(email);
+        if(!matchPass(pass,user.get().getPassword())){
+            return null;
+        }
+        return user;
+    }
+
+
 
     public ResponseDto create(User request) {
 
@@ -49,10 +68,11 @@ public class UserService {
             response.status=false;
             response.message= UsernameRegistered;
         }else{
-                repository.save(request);
-                response.status=true;
-                response.message= UserSuccess;
-                response.id=request.getId();
+            request.setPassword(encrypt(request.getPassword()));
+            repository.save(request);
+            response.status=true;
+            response.message= UserSuccess;
+            response.id=request.getId();
         }
         return response;
     }
@@ -72,5 +92,13 @@ public class UserService {
         repository.deleteById(id);
         Boolean deleted = true;
         return deleted;
+    }
+
+    private String encrypt(String pass){
+        return this.passwordEncoder.encode(pass);
+    }
+
+    private Boolean matchPass(String pass,String dbPass){
+        return this.passwordEncoder.matches(pass,dbPass);
     }
 }
