@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 /**
  *
@@ -32,22 +33,21 @@ public class ScoreController {
         return service.get();
     }
 
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ResponseDto> create(@RequestBody ScoreDto request) {
-        ResponseDto responseDto = service.create(request);
-        ResponseEntity<ResponseDto> response = new ResponseEntity<>(responseDto,HttpStatus.CONFLICT);
-
-        if(responseDto.status.booleanValue()==true){
-            response = new ResponseEntity<>(responseDto,HttpStatus.CREATED);
-        }
-        return response;
+    @GetMapping("/check/{movieId}")
+    public Score check(@PathVariable("movieId") String movieId,@RequestHeader(value="authorization") String authorization) {
+        return service.check(movieId,authorization);
     }
 
-    @PutMapping("")
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseDto create(@RequestBody ScoreDto request,@RequestHeader(value="authorization") String authorization) {
+        return service.create(request,authorization);
+    }
+
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Score update(@RequestBody Score request) {
-        return service.update(request);
+    public ResponseDto update(@PathVariable("id") String id,@RequestBody Score request) {
+        return service.update(request,id);
     }
 
     @DeleteMapping("/{id}")

@@ -42,10 +42,10 @@ public class UserService {
 
     public Optional<User> getByCredential(String credential) {
         String pair = new String(Base64.decodeBase64(credential.substring(6)));
-        String email = pair.split(":")[0];
+        String username = pair.split(":")[0];
         String pass = pair.split(":")[1];
 
-        Optional<User> user = repository.findUserByEmail(email);
+        Optional<User> user = repository.findUserByUsername(username);
         if(!matchPass(pass,user.get().getPassword())){
             return null;
         }

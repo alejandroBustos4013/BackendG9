@@ -42,6 +42,11 @@ public class ScoreRepository {
         return repository.getScoreByMoviesAndUserById(movieId, userId);
     }
 
+    public List<Score> findByMovieAndUserById(String movieId, String userId){
+        List<Score> response = repository.getScoreByMoviesAndUserById(movieId,userId);
+        return response;
+    }
+
 
     
     public Optional<Score> findById(String id){

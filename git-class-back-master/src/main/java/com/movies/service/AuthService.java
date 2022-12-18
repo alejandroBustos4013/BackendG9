@@ -49,12 +49,12 @@ public class AuthService {
     public Optional<User> checkCredential(String nombreusuario, String password) {
 
         Optional<User> user = repository.findUserByUsername(nombreusuario);
-        /*if (!matchPass(password, user.get().getPassword())) {
-            return null;
-        }*/
-        if (!password.equals(user.get().getPassword())){
+        if (!matchPass(password, user.get().getPassword())) {
             return null;
         }
+        /*if (!password.equals(user.get().getPassword())) {
+            return null;
+        }*/
         return user;
     }
 
@@ -74,8 +74,6 @@ public class AuthService {
     private Boolean matchPass(String pass, String dbPass) {
         return this.passwordEncoder.matches(pass, dbPass);
     }
-
-
 
 
 }
