@@ -6,9 +6,14 @@ package com.movies.service;
 
 import com.movies.dto.ResponseDto;
 import com.movies.entities.Gender;
+import com.movies.entities.Movie;
 import com.movies.interfaces.IGenderRepository;
+import com.movies.repository.GenderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -18,21 +23,33 @@ import org.springframework.stereotype.Service;
 public class GenderService {
 
     @Autowired
-    IGenderRepository repository;
+    GenderRepository repository;
 
     public Iterable<Gender> get() {
-        Iterable<Gender> response = repository.findAll();
+        Iterable<Gender> response = repository.getAll();
+        return response;
+    }
+    public Optional<Gender> getByName(String name) {
+        Optional<Gender> response = repository.getGenderByName(name);
         return response;
     }
 
     public ResponseDto create(Gender request) {
+        ResponseDto response = new ResponseDto();
+        //Gender newGender = repository.save(request);
+        List<Gender> gendersname = repository.getByName(request.getName());
 
-        Gender newGender = repository.save(request);
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.status = true;
-        responseDto.message = "El genero se creo de manera correcta";
-        responseDto.id = newGender.getId();
-        return responseDto;
+        if (gendersname.size()>0){
+            response.status=false;
+            response.message="genero ya se encuentra creado";
+        }else {
+            repository.save(request);
+            response.status = true;
+            response.message = "El genero se creo de manera correcta";
+            response.id = request.getId();
+
+        }
+        return response;
     }
 
     public Gender update(Gender gender) {

@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -16,6 +17,14 @@ import java.util.List;
  */
 public interface IMovieRepository extends MongoRepository<Movie, String> {
     @Query(value= "{title : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
-    List<Movie> getMoviesByTitle(String title);
+    List<Movie> getMoviesByTitle(String title);// esta creado antes de la intervencion FUNCIONANDO
+
+    @Query(value= "{genders:{$elemMatch:{name: ?0}}}")
+    Iterable<Movie> getMoviesByGender(String name);// esta creado antes de la intervencion FUNCIONANDO
+
+    @Query (value = "{users:{$elemMatch:{id: ?0}}}")
+    List<Movie> getMovieByUserId(String id);
+
+
 
 }

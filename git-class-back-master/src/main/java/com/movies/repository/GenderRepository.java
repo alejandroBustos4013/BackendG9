@@ -5,8 +5,10 @@
 package com.movies.repository;
 
 import com.movies.entities.Gender;
+import com.movies.entities.Movie;
 import com.movies.interfaces.IGenderRepository;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,8 +24,15 @@ public class GenderRepository {
     IGenderRepository repository;
     
     public Iterable<Gender> getAll(){
-
         return repository.findAll();
+    }
+
+    public Optional<Gender> getGenderByName(String name){
+        return repository.findGenderByName(name);
+    }
+
+    public List<Gender> getByName(String name){
+        return repository.getGenderByName(name);
     }
     
     public Optional<Gender> findById(String id){

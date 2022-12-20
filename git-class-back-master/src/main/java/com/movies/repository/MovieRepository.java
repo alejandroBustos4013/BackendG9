@@ -30,6 +30,13 @@ public class MovieRepository {
         return repository.getMoviesByTitle(title);
     }
 
+    public Iterable<Movie> findMoviesByGender(String name){
+        Iterable<Movie> response= repository.getMoviesByGender(name);
+        return response;
+    }
+
+
+
 
     public Optional<Movie> findById(String id){
         Optional<Movie> response= repository.findById(id);
@@ -47,5 +54,7 @@ public class MovieRepository {
     public Movie save(Movie movie){
         return repository.save(movie);
     }
+
+
     
 }

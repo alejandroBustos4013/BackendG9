@@ -31,6 +31,11 @@ public class MovieService {
         return response;
     }
 
+    public Iterable<Movie> findMoviesByGender(String name) {
+        Iterable<Movie> response = repository.findMoviesByGender(name);
+        return response;
+    }
+
     public Optional<Movie> getById(String id) {
         Optional<Movie> response = repository.findById(id);
         return response;

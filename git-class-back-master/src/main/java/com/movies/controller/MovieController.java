@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,6 +35,11 @@ public class MovieController {
     @GetMapping("/{id}")
     public Optional<Movie> getById(@PathVariable("id") String id) {
         return service.getById(id);
+    }
+
+    @GetMapping("/gender/{name}")
+    public Iterable<Movie> findMoviesByGender(@PathVariable("name") String name) {
+        return service.findMoviesByGender(name);
     }
 
     @PostMapping("")

@@ -6,9 +6,11 @@ package com.movies.controller;
 
 import com.movies.dto.ResponseDto;
 import com.movies.entities.Gender;
+import com.movies.entities.Movie;
 import com.movies.service.GenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 /**
  *
@@ -34,16 +38,24 @@ public class GenderController {
 
     @GetMapping("")
     public Iterable<Gender> get() {
-        Iterable<Gender> response = service.get();
+        return service.get();
+    }
 
-        return response;
+    @GetMapping("/{name}")
+    public Optional<Gender> getByName(@PathVariable("name") String name) {
+        return service.getByName(name);
     }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseDto create(@RequestBody Gender request) {
+    public ResponseEntity<ResponseDto> create(@RequestBody Gender request) {
 
-        return service.create(request);
+        ResponseDto responseDto = service.create(request);
+        ResponseEntity<ResponseDto> response = new ResponseEntity<>(responseDto,HttpStatus.CONFLICT);
+        if(responseDto.status.booleanValue()==true){
+            response = new ResponseEntity<>(responseDto,HttpStatus.CREATED);
+        }
+        return response;
     }
 
     @PutMapping("")
