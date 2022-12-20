@@ -4,8 +4,11 @@
  */
 package com.movies.controller;
 
+import com.movies.dto.MovieDto;
 import com.movies.dto.ResponseDto;
+import com.movies.dto.ScoreDto;
 import com.movies.entities.Movie;
+import com.movies.entities.Score;
 import com.movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,17 +45,12 @@ public class MovieController {
         return service.findMoviesByGender(name);
     }
 
+
+
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ResponseDto> create(@RequestBody Movie request) {
-        ResponseDto responseDto = service.create(request);
-        ResponseEntity<ResponseDto> response = new ResponseEntity<>(responseDto,HttpStatus.CONFLICT);
-
-        if(responseDto.status.booleanValue()==true){
-            response = new ResponseEntity<>(responseDto,HttpStatus.CREATED);
-        }
-
-        return response;
+    public ResponseDto create(@RequestBody MovieDto request, @RequestHeader(value="authorization") String authorization) {
+        return service.create(request,authorization);
     }
 
     @PutMapping("")

@@ -4,9 +4,14 @@
  */
 package com.movies.service;
 
+import com.movies.dto.MovieDto;
 import com.movies.dto.ResponseDto;
+import com.movies.entities.Gender;
 import com.movies.entities.Movie;
+import com.movies.entities.User;
+import com.movies.repository.GenderRepository;
 import com.movies.repository.MovieRepository;
+import com.movies.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +31,16 @@ public class MovieService {
     @Autowired
     MovieRepository repository;
 
+    @Autowired
+    GenderRepository genderRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
+
+
     public Iterable<Movie> get() {
         Iterable<Movie> response = repository.getAll();
         return response;
@@ -41,17 +56,34 @@ public class MovieService {
         return response;
     }
 
-    public ResponseDto create(Movie request) {
+    public ResponseDto create(MovieDto request, String authorization) {
         ResponseDto response = new ResponseDto();
-        List<Movie> movies = repository.getByTitle(request.getTitle());
+        response.status= false;
+
+        List<Movie> movies = repository.getByTitle(request.title);
         if(movies.size()>0){
-            response.status=false;
             response.message=MovieRegistered;
         }else{
-            repository.save(request);
-            response.status=true;
-            response.message=MovieSuccess;
-            response.id= request.getId();
+            Movie movie = new Movie();
+            Optional<Gender> gender = genderRepository.findById(request.genderId);
+            Optional<User> user = userService.getByCredential(authorization);
+
+            if (gender.isPresent() && user.isPresent()){
+                movie.setTitle(request.title);
+                movie.setDescription(request.description);
+                movie.setGenders(gender.get());
+                movie.setDirector(request.director);
+                movie.setLink(request.link);
+                movie.setReleaseDate(request.releaseDate);
+                movie.setUsers(user.get());
+                movie.setImageLink(request.imageLink);
+                repository.save(movie);
+                response.status=true;
+                response.message=MovieSuccess;
+                response.id = movie.getId();
+
+
+            }
         }
         return response;
     }

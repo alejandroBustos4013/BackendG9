@@ -36,7 +36,7 @@ public class Movie implements Serializable {
 
     private String description;
 
-    private List<Gender> genders;
+    private Gender genders;
 
     private String director;
 
@@ -44,7 +44,7 @@ public class Movie implements Serializable {
 
     private String releaseDate;
 
-    private List<User> users;
+    private User users;
 
     private String imageLink;
 

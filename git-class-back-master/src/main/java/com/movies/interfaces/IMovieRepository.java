@@ -19,11 +19,14 @@ public interface IMovieRepository extends MongoRepository<Movie, String> {
     @Query(value= "{title : ?0}") // SQL Equivalent : SELECT * FROM Movie select * from Movie where name=?
     List<Movie> getMoviesByTitle(String title);// esta creado antes de la intervencion FUNCIONANDO
 
-    @Query(value= "{genders:{$elemMatch:{name: ?0}}}")
-    Iterable<Movie> getMoviesByGender(String name);// esta creado antes de la intervencion FUNCIONANDO
+    //@Query(value= "{genders:{$elemMatch:{name: ?0}}}")
+    //Iterable<Movie> getMoviesByGender(String name);// esta creado antes de la intervencion FUNCIONANDO
 
-    @Query (value = "{users:{$elemMatch:{id: ?0}}}")
-    List<Movie> getMovieByUserId(String id);
+    @Query(value= "{'genders.name': ?0}")
+    Iterable<Movie> getMoviesByGender(String name);
+
+    //@Query (value = "{users:{$elemMatch:{id: ?0}}}")
+    //List<Movie> getMovieByUserId(String id);
 
 
 
